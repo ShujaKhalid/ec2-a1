@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% block content %}
+
+<html>
+  <body>
+    <h1>uploadForm</h1>
+     <form method="post" action=login_submit_test>
+        <label> User ID </label>
+        <input type="text" name="userID"><br>
+        <label> Password </label>
+        <input type="text" name="password"><br>
+       	<label> What is the image files to upload? </label>     
+        <input type="file" name="uploadedfile"><br>
+       	<input type="submit" value="Send">
+    </form>
+  </body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='fancyInput.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='default.css')}}">
+
+<style type="text/css">
+    body {
+    background-image: url("/static/space5.jpg");
+}
+
+.button {
+            height:10%;
+            width:20%;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            cursor: pointer;
+            overflow: hidden;
+            vertical-align: center;
+            text-align: center;
+            font-size: 30px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+
+        }
+
+.header {
+            height:10%;
+            width:100%;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            vertical-align: center;
+            text-align: center;
+            font-size: 60px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+            padding-bottom: 50px;
+            padding-top: 2%;
+        }
+
+</style>
+
+
+
+<html>
+    <body>
+        <form class=header method='post' action='login_submit'>
+            <table>
+                <div>
+                    <div>
+                        User Login
+                    </div>
+                </div>
+
+                <div>
+                    <label>Username:</label>
+                    <input type='text' name='username'>
+                </div>
+                <div>
+                    
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <input type='password' name='password'>
+                </div>
+                <div>
+                    <button class=button formaction=login_submit>
+                    Sign In
+                    </button>
+                </div>
+            </table>
+        </form>
+    <body>    
+</html>
+
+<script>
+    $('input').fancyInput();
+</script>
+
+<script type="text/javascript">
+    
+    $(function() { 
+        $('.button').click(function(event) {
+            alertify.alert('This is an alert');
+            alertify.success("Success log message");
+            alertify.error("Error log message");
+        });
+    });
+
+</script>
+
+{% endblock %}

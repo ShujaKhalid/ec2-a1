@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='fancyInput.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='default.css')}}">
+
+<style type="text/css">
+    body {
+    background-image: url("/static/space5.jpg");
+}
+
+.button {
+            height:10%;
+            width:10%;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            font-size: 30px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+
+        }
+
+.header {
+            height:10px;
+            width:100%;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            vertical-align: center;
+            text-align: center;
+            font-size: 60px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+            padding-top: 2%;
+        }
+
+</style>
+
+
+
+<html>
+
+    <body>
+        <form class=header method='post' action="{{url_for('ec2_autoscale_config')}}">
+        <table>
+            <div>
+                <div>
+                    Autoscale Configuration
+                </div>
+            </div>        
+            <div>
+                <label>CPU Util. Upper Threshold:</label>
+                <input type='text' name='uplimit'>
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                <label>CPU Util. Upper Threshold:</label>
+                <input type='test' name='lowlimit'>
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                <label>Pool Expansion Ratio:</label>
+                <input type='text' name='expratio'>
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                <label>Pool Reduction Ratio:</label>
+                <input type='text' name='shrinkratio'>
+            </div>                
+            <div>
+                <button class=button formaction="{{url_for('ec2_autoscale_config')}}">
+                Set Parameters
+                </button>
+            </div>
+        </table>
+        </form>
+    <body>    
+</html>
+
+<script>
+    $('input').fancyInput();
+</script>
+
+<script type="text/javascript">
+    
+    $(function() { 
+        $('.button').click(function(event) {
+            alertify.alert('This is an alert');
+            alertify.success("Success log message");
+            alertify.error("Error log message");
+        });
+    });
+
+</script>
+
+{% endblock %}
