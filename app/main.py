@@ -432,6 +432,37 @@ def ec2_deregister_instance(id):
     return print('Instance: ' + id + ' removed from load balancer', file=sys.stderr)
 
 
+@webapp.route('/admin/ec2_nuke/', methods=['POST'])
+# Set configuration parameters for Auto-Scaling:
+def ec2_nuke():
+    # S3 delete everything in S3 bucket
+    s3 = boto3.resource('s3')
+    id = 'ece1779bucket1'
+
+    # bucket = s3.Bucket(id)
+
+    # for bucket in s3.buckets.all():
+    #     for key in bucket.objects.all():
+    #         key.delete
+
+    s3.Bucket(id).objects.delete()
+
+
+    # Delete everything in relational database
+    cnx = get_db()
+    cursor = cnx.cursor()
+    query = "DELETE FROM users"
+    cursor.execute(query)
+    cnx.commit()
+
+    cnx = get_db()
+    cursor = cnx.cursor()
+    query = "DELETE FROM images"
+    cursor.execute(query)
+    cnx.commit()
+
+    return admin_view()
+
 @webapp.route('/login_submit_test', methods=['GET', 'POST'])
 def login_submit_test():
 

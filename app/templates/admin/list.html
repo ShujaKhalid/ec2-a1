@@ -68,7 +68,7 @@ body   {
 }
 .pad2 {
     padding-top: 1%;
-    padding-left: 35%
+    padding-left: 27%
 }
 .pad3 {
     padding-top: 2%;
@@ -98,6 +98,13 @@ body   {
             <input class=butt4 type="submit" value="Auto Scale Configuration">
             </form>
             </td>
+
+            <td>
+            <form action="{{url_for('ec2_nuke')}}" method='post' onsubmit='return confirm("Are you sure?")'>
+            <input class=butt4 type='submit' value='Delete Everything!' />
+            </form>
+            </td>
+
         </tr>
     </table>
     <div>
