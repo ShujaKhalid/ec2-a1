@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='fancyInput.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='alertify.css')}}">
+
+<style type="text/css">
+    body {
+    background-image: url("/static/space5.jpg");
+}
+
+.button {
+            height:15%;
+            width:15%;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            font-size: 30px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+
+        }
+
+.header {
+            height:10px;
+            width:100%;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            vertical-align: center;
+            text-align: center;
+            font-size: 60px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+            padding-top: 2%;
+        }
+
+</style>
+
+
+
+<html>
+
+    <body>
+        <form class=header method='post' action="{{url_for('ec2_autoscale_config')}}">
+        <table>
+            <div>
+                <div>
+                    Autoscale Configuration
+                </div>
+            </div>        
+            <div>
+                <label>CPU Util. Upper Threshold:</label>
+                <input id=up type='text' name='uplimit'>
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                <label>CPU Util. Lower Threshold:</label>
+                <input id=down type='test' name='lowlimit'>
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                <label>Pool Expansion Ratio:</label>
+                <input id=grow type='text' name='expratio'>
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                <label>Pool Reduction Ratio:</label>
+                <input id=shrink type='text' name='shrinkratio'>
+            </div>                
+            <div>
+                <button class=button formaction="{{url_for('ec2_autoscale_config')}}">
+                Set Parameters
+                </button>
+            </div>
+        </table>
+        </form>
+    <body>    
+</html>
+
+<script>
+    $('input').fancyInput();
+</script>
+
+<script type="text/javascript">
+    
+    $(function() { 
+        $('button').click(function(event) {
+            var up = $("#up").val();
+            var down = $("#down").val();
+            var grow = $("#grow").val();
+            var shrink = $("#shrink").val();
+
+            if (grow-parseInt(grow) != 0 || shrink-parseInt(shrink) != 0 || up-parseInt(up) != 0 || down-parseInt(down) != 0) {
+              alertify.error("All ratios and limits should be integers!");
+              return false
+            } else if (up < 0 || up > 100 || down < 0 || down > 100) {
+              alertify.error("Entered value is not within permissible range (0-100)");
+              return false
+            } else if (up < down) {
+              alertify.error("Value of upper limit should be greater than lower limit!");
+              return false
+            }
+        });
+    });
+
+</script>
+
+{% endblock %}

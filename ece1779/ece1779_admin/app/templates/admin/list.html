@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='alertify.css')}}">
+
+<style type="text/css">
+                
+body   {
+        background-image: url("/static/space4.jpg");
+        background-size: 100%;
+        }
+.butt4 {
+            height: 50px;
+            width: 250px;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            cursor: pointer;
+            overflow: hidden;
+            vertical-align: center;
+            text-align: center;
+            font-size: 20px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+        }
+.butt5 {
+            height:50px;
+            width:100px;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            cursor: pointer;
+            overflow: hidden;
+            vertical-align: center;
+            text-align: center;
+            font-size: 20px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+        }
+.butt6 {
+            height: 50px;
+            width: 250px;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            cursor: pointer;
+            overflow: hidden;
+            vertical-align: center;
+            text-align: center;
+            font-size: 20px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+        }
+.butt7 {
+            height: 50px;
+            width: 250px;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            cursor: pointer;
+            overflow: hidden;
+            vertical-align: center;
+            text-align: center;
+            font-size: 20px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+        }
+.butt8 {
+	    height: 50px;
+	    width: 250px;
+	    background-color: Transparent;
+ 	    background-repeat: no-repeat;
+	    cursor: pointer;
+	    overflow: hidden;
+	    vertical-align: center;
+	    text-align: center;
+	    font-size: 20px;
+	    font-family: "Fjalla One", sans-serif;
+	    color: white;
+}
+.head3 {
+            height:10px;
+            width:200px;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            vertical-align: center;
+            text-align: center;
+            font-size: 20px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+            padding-top: 0%;
+            padding-bottom: 0%;
+        }
+.head4 {
+            height:20px;
+            width:100px;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            vertical-align: center;
+            text-align: center;
+            font-size: 60px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+.pad {
+    padding-left: 14%;
+}
+.pad2 {
+    padding-left: 26%
+}
+.pad3 {
+    padding-left: 32%
+}
+</style>
+
+    <table class=pad3>
+        <tr>
+            <thead class=head4>
+               <th>Administrator Dashboard</th>
+            </thead> 
+        </tr>
+    </table>
+    <table class=pad2>
+        <tr>
+            <td>        
+                <form action="{{url_for('ec2_create')}}" method="post">
+                <input class=butt7 type="submit" value="Launch New Instance">
+                </form>
+            </td>
+
+            <td>
+                <form action="{{url_for('ec2_autoscale')}}" method="post" onsubmit="return confirm('Proceed to Autoscaling Parameter Configuration Page?')">
+                <input class=butt6 type="submit" value="Auto Scale Configuration">
+                </form>
+            </td>
+	
+	    <!--
+            <td>
+		<form action="{{url_for('ec2_autoscale_stop')}}" method="post" onsubmit="return confirm('Abort Autoscaling? Background Scheduler will be stopped')">	
+		<input class=butt8 type="submit" value="Abort Auto Scaling"></input>
+		</form>
+	    </td>
+	    -->
+
+            <td>
+                <form action="{{url_for('ec2_nuke')}}" method='post' onsubmit="return confirm('Are you Sure?')">
+                <input class=butt4 type='submit' value='Delete Everything!' />
+                </form>
+            </td>
+        </tr>
+    </table>
+
+
+    <table class=pad>
+        <thead class=head3>
+           <th>ID ↓↑ </th>
+           <th>Type</th>
+           <th>Availability Zone</th>
+           <th>Status ↓↑ </th>
+           <th>CPU Utilization (%) ↓↑ </th>
+        </thead> 
+
+        <tbody>
+        {% for instance in instances %}
+            <tr>
+                <td class=head3>{{ instance.id }}</td>
+                <td class=head3>{{ instance.instance_type }}</td>
+                <td class=head3>{{ instance.placement['AvailabilityZone']}}</td>
+                <td class=head3>{{ instance.state['Name'] }}</td>
+                <td class=head3>{{ cpuutil[(instance.id)] }}</td>
+             
+                <td>
+                    <form action="{{url_for('ec2_destroy',id=instance.id)}}" method='post'>
+                        <input class=butt5 type='submit' value='Destroy' />
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}    
+        </tbody>
+    </table>
+
+<script>
+    $(function() { 
+        $(".pad").tablesorter(); 
+    } 
+); 
+    $(function() { 
+        $('.butt4').click(function(event) {
+            alertify.success("Memory Purge Successful!");
+        });
+    });
+    $(function() { 
+        $('.butt7').click(function(event) {
+            alertify.success("Instance Launched Successfully! :)");
+        });
+    });
+    $(function() { 
+        $('.butt5').click(function(event) {
+            alertify.success("All user data deleted!");
+        });
+    });
+   
+</script>
+
+{% endblock %}

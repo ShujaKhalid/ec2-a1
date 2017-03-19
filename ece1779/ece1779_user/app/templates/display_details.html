@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Image Display</title>
+</head>
+<body>
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='adipoli.css')}}">
+
+<style type="text/css">
+                
+body   {
+        background-image: url("/static/space5.jpg");
+        background-size: 100%;
+        }
+
+.head {
+            height:50px;
+            width:100%;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            vertical-align: center;
+            text-align: center;
+            font-size: 80px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+            padding-left: 0%
+        }
+
+.head1 {
+            height:50px;
+            width:100%;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            vertical-align: left;
+            text-align: left;
+            font-size: 30px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+            padding-left: 0%
+        }
+</style>
+<table>
+  <div class="row">
+  <p class=head > Detailed View </p>
+  {% for row in cursor %}
+      <tr>
+        <td>
+          <p class=head1 >Original Image:     </p>
+        </td>
+        <td>
+          <div class="thumbnail">
+              <img src={{url_s3}}{{bucket}}/{{row[0]}} alt="Lights">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p class=head1 >Transformation 1     </p>
+          <p class=head1 >(rot: 90 degrees):    </p>
+        </td>
+        <td>
+          <div class="thumbnail">
+              <img src={{url_s3}}{{bucket}}/{{row[1]}} alt="Lights">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p class=head1 >Transformation 2     </p>
+          <p class=head1 >(rot: 180 degrees):   </p>
+        </td>
+        <td>
+          <div class="thumbnail">
+              <img src={{url_s3}}{{bucket}}/{{row[2]}} alt="Lights">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p class=head1 >Transformation 3     </p>
+          <p class=head1 >(rot: 270 degrees):     </p>
+        </td>
+        <td>
+          <div class="thumbnail">
+              <img src={{url_s3}}{{bucket}}/{{row[3]}} alt="Lights">
+          </div>
+        </td>
+      </tr>
+  {% endfor %}
+  </div>
+</table>
+</body>
+</html>
+

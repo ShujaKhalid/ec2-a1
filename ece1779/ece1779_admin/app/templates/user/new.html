@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='fancyInput.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='default.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='alertify.css')}}">
+
+<style type="text/css">
+    body {
+    background-image: url("/static/space5.jpg");
+}
+
+.button {
+            height:10%;
+            width:20%;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            cursor: pointer;
+            overflow: hidden;
+            vertical-align: center;
+            text-align: center;
+            font-size: 30px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+
+        }
+
+.header {
+            height:10%;
+            width:100%;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            vertical-align: center;
+            text-align: center;
+            font-size: 60px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+            padding-bottom: 50px;
+            padding-top: 2%;
+        }
+.error {
+            height:10%;
+            width:100%;
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            vertical-align: center;
+            text-align: center;
+            font-size: 20px;
+            font-family: "Fjalla One", sans-serif;
+            color: white;
+            padding-bottom: 5px;
+            padding-top: 5px;  
+}
+
+</style>
+
+
+
+<html>
+    <body>
+        <form id=regForm class=header method='post' action='{{url_for("user_create_save")}}'>
+            <table>
+                <div>
+                    <div>
+                        Enter Account Details below:
+                    </div>
+                </div>
+
+                <div>
+                    
+                </div>
+
+                <!-- <div class='error'>{{error_msg if error_mag != None}}</div> -->
+
+                <div>
+                    <label>Username:</label>
+                    <input id=user type='text' name='login'>
+                </div>
+                <div>
+
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <input id=pass type='password' name='password'>
+                </div>
+                <div>
+
+                </div>
+                <div>
+                    <label>Confirm Password:</label>
+                    <input id=confirm type='password' name='password_reenter'>
+                </div>
+                <div>
+                    <button class=button formaction='{{url_for("user_create_save")}}'>
+                    Create Account
+                    </button>
+                </div>
+            </table>
+        </form>
+    <body>    
+</html>
+
+<script>
+    $('input').fancyInput();
+</script>
+
+<script type="text/javascript">
+
+    $(function() { 
+        $('#user').blur(function(event) {
+            var myLeng = $("#user").val().length;
+            // Field Length Check
+            if (myLeng >= 4 ) {
+              alertify.success("Username meets criteria!");
+            } else { 
+              alertify.error("Username must be at least 4 characters");
+            }
+        });
+    });
+
+    $(function() { 
+        $('#pass').blur(function(event) {
+            var myLength = $("#pass").val().length;
+            // Field Length Check
+            if (myLength >= 4 ) {
+              alertify.success("Password meets criteria!");
+            } else {
+              alertify.error("Password must be at least 4 characters");
+            }
+        });
+    });
+
+    $(function() { 
+        $('#confirm').blur(function(event) {
+            var passw1 = $("#confirm").val();
+            var passw2 = $("#pass").val();
+            if (passw1 == passw2) {
+              alertify.success("Entered Passwords Match!");
+            } else {
+              alertify.error("Entered Passwords do not match :(");
+            }
+        });
+    });
+
+    $(function() { 
+        $('.button').click(function(event) {
+            var passw1 = $("#confirm").val();
+            var passw2 = $("#pass").val();
+            var myLength = $("#pass").val().length;
+            var myLeng = $("#user").val().length;
+
+            if (passw1 != passw2) {
+              alertify.error("Entered Passwords do not match :(");
+              return false
+            } else if (myLeng < 4) {
+              alertify.error("Username must be at least 4 characters");
+              return false
+            } else if (myLength < 4) {
+              alertify.error("Password must be at least 4 characters");
+              return false
+            }
+        });
+    });
+
+</script>
+
+{% endblock %}
